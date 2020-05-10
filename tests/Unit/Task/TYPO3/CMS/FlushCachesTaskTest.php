@@ -46,6 +46,17 @@ class FlushCachesTaskTest extends BaseTaskTest
         $this->assertCommandExecuted('/php \'typo3cms\' \'cache:flush\'$/');
     }
 
+    /**
+     * @test
+     */
+    public function executeFlushCacheWithFilesOnlyCommandSuccessfully(): void
+    {
+        $application = new CMS();
+        $options = ['scriptFileName' => 'typo3cms', 'filesOnly' => true];
+        $this->task->execute($this->node, $application, $this->deployment, $options);
+        $this->assertCommandExecuted('/php \'typo3cms\' \'cache:flush\' \'--files-only\'$/');
+    }
+
     protected function createTask()
     {
         return new FlushCachesTask();
